@@ -1,7 +1,6 @@
 # Data Dictionary
 
-This document describes the data used in the analysis, in the order it flows through the notebook: source data → preparation → engineered features → analysis outputs.
-
+This document describes the data used in the analysis.
 ---
 
 ## 1. Source Data
