@@ -35,7 +35,7 @@ Daily returns, rolling volatility, and trend measures are derived from these fie
 
 ## 🧰 Tech Stack
 
-* **Language:** Python 3.10+
+* **Language:** Python
 * **Libraries:** pandas, NumPy, SciPy, Matplotlib, Seaborn, yfinance
 * **Environment:** Jupyter Notebook
 
