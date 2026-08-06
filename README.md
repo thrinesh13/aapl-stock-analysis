@@ -1,8 +1,6 @@
 # Apple Stock Analysis
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue) ![pandas](https://img.shields.io/badge/pandas-2.2+-150458) ![SciPy](https://img.shields.io/badge/SciPy-statistical%20testing-8CAAE6) ![License](https://img.shields.io/badge/License-MIT-green)
-
-A statistical analysis of Apple (AAPL) daily trading data over five years, covering price performance, risk, trading volume, and calendar effects.
+Apple returned 113% in five years without becoming riskier, and its trading volume says nothing about where the price is going.
 
 **August 2021 – August 2026 · 1,254 trading days**
 
@@ -10,21 +8,33 @@ A statistical analysis of Apple (AAPL) daily trading data over five years, cover
 
 ## Overview
 
-Three widely repeated claims about stocks drive real decisions but are rarely tested:
+### Background
 
-- Risk rises as a stock climbs
-- Trading volume signals where the price is heading
-- Certain months and weekdays are reliably better or worse
+Apple is among the most heavily traded stocks on the market, which makes its daily record a clean test case. Volume figures are large and steady rather than sparse, and a five-year window supplies enough observations for real differences to surface if they exist.
 
-This analysis tests all three against Apple's daily trading record. Two of them do not survive the test.
+Three common assumptions about how stocks behave framed the analysis:
+
+- **Risk rises as a stock climbs.** Apple's price more than doubled in five years, so the expectation is that it became a more volatile holding.
+- **Volume signals price movement.** Heavy trading is often treated as evidence that something is happening to the price.
+- **Certain months and weekdays perform better than others.** "Sell in September" and similar calendar rules are widely repeated.
+
+### The data
+
+The analysis uses Apple's complete daily trading record from **August 2021 to August 2026**, covering 1,254 trading days sourced from Yahoo Finance. Each row captures a single day: the price the stock opened at, its high and low, where it closed, and how many shares changed hands.
+
+The window suits the questions. It opens near the end of the post-pandemic bull market, runs through the 2022 rate-hike selloff that cut Apple by nearly a third, captures the recovery and the AI-driven mega-cap rally of 2023 and 2024, and ends in 2026 with the stock at record highs. Calm periods, a severe drawdown, and a sustained climb are all represented, so the conclusions do not rest on a single market regime.
+
+Everything the analysis measures, daily returns, rolling volatility, and trend, is derived from these few fields. Each definition and formula is in the **[Data Dictionary](DATA_DICTIONARY.md)**.
+
+### What the analysis found
 
 | Question | Method | Answer |
 |---|---|---|
-| Has AAPL become riskier as its price climbed? | Rolling volatility on % returns, by year | **No** — volatility peaked in 2022 and is near average today |
-| Does volume signal price direction? | t-test on up-days vs down-days | **No** — statistically indistinguishable (p = 0.267) |
-| Do calendar patterns exist? | Monthly and weekday return averages | **Weakly** — a monthly pattern appears, no weekday effect at all |
+| Has AAPL become riskier as its price climbed? | Rolling volatility on % returns, by year | **No.** Volatility peaked in 2022 and sits near average today |
+| Does volume signal price direction? | t-test on up-days vs down-days | **No.** Statistically indistinguishable (p = 0.267) |
+| Do calendar patterns exist? | Monthly and weekday return averages | **Weakly.** A monthly pattern appears, no weekday effect at all |
 
-Data sources, field definitions, and calculation formulas are documented in the **[Data Dictionary](DATA_DICTIONARY.md)**.
+The two measurement problems behind those answers are set out in Findings 2 and 4.
 
 ---
 
@@ -32,7 +42,7 @@ Data sources, field definitions, and calculation formulas are documented in the 
 
 ### 1. Strong returns, with one severe drawdown
 
-AAPL returned **+112.8%** over five years — a **16.3% CAGR** — rising from $146 to $311. Growth was not smooth. Every year was positive except **2022, which fell -28.6%**. Realising the five-year return required holding through a year that erased more than a quarter of the position's value.
+AAPL returned **+112.8%** over five years — a **16.3% CAGR** — rising from $146 to $311. Growth was not smooth. Every year was positive except **2022, which fell -28.6%**. Realizing the five-year return required holding through a year that erased more than a quarter of the position's value.
 
 ![Price trends and seasonality](images/trends_seasonality.png)
 
@@ -92,7 +102,7 @@ Weekday returns range from -0.09% (Thursday) to +0.16% (Wednesday) — trivial a
 
 ## Method
 
-Standard analyst workflow: data acquisition → quality checks → feature engineering → descriptive statistics → distribution testing (D'Agostino, skewness, kurtosis) → correlation analysis → hypothesis testing (t-test) → time-based analysis.
+Data acquisition → quality checks → feature engineering → descriptive statistics → distribution testing (D'Agostino, skewness, kurtosis) → correlation analysis → hypothesis testing (t-test) → time-based analysis.
 
 Two methodological choices materially changed the conclusions:
 
@@ -119,18 +129,8 @@ Two methodological choices materially changed the conclusions:
 | `Apple_Inc.ipynb` | Full analysis: code, outputs, charts, written insight after every result |
 | `DATA_DICTIONARY.md` | Data flow, field definitions, formulas, caveats |
 | `images/` | Charts exported from the notebook |
-| `requirements.txt` | Python dependencies |
 
-## Reproduce
-
-```bash
-git clone https://github.com/YOUR_USERNAME/apple_stock_analysis.git
-cd apple_stock_analysis
-pip install -r requirements.txt
-jupyter notebook Apple_Inc.ipynb
-```
-
-Requires Python 3.10+ and pandas 2.2+. The notebook downloads fresh data on each run, so figures shift slightly with the run date.
+Built with Python, pandas, NumPy, SciPy, Matplotlib and Seaborn. The notebook downloads fresh data on each run, so figures shift slightly with the run date.
 
 ---
 
