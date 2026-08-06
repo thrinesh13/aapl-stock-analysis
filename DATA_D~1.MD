@@ -1,6 +1,6 @@
 # Data Dictionary
 
-This document describes the data used in the analysis.
+This document describes the data used in the analysis
 ---
 
 ## 1. Source Data
