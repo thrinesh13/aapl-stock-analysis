@@ -87,6 +87,8 @@ Measured on percentage returns, volatility shows **no upward trend**. 2022 was t
 
 The perception that Apple became riskier stems from measuring volatility in dollars. A $300 stock moves more dollars per day than a $150 stock at identical percentage volatility, so a dollar-based measure rises automatically with price. Correcting the measure reverses the conclusion.
 
+One spike breaks the pattern. Early 2025 peaks at **4.4%**, above the 3.12% high of 2022 and **the most volatile 30 day stretch in the sample.** Yet 2025's median day was 1.61%, below the five-year average of 1.65%, and the boxplot confines the episode to the upper outliers with the interquartile range untouched. A peak nearly three times the year's own typical day is the signature of an isolated shock. The year contained **an extreme month, not an elevated one**.
+
 ![Volatility analysis](images/volatility_analysis.png)
 
 ---
