@@ -33,28 +33,6 @@ Daily returns, rolling volatility, and trend measures are derived from these fie
 
 ---
 
-## 🧰 Tech Stack
-
-* **Language:** Python
-* **Libraries:** pandas, NumPy, SciPy, Matplotlib, Seaborn, yfinance
-* **Environment:** Jupyter Notebook
-
----
-
-## 🔄 Workflow
-
-**1. Data acquisition.** Retrieved 1,254 daily OHLCV records via `yfinance` and validated completeness before analysis.
-
-**2. Feature engineering.** Derived daily returns, intraday range, a 30-day moving average for trend, and 30-day rolling volatility. Volatility was calculated on percentage returns rather than dollar prices so that values remain comparable across a period in which the price doubled.
-
-**3. Descriptive and distribution analysis.** Summarised price, volume, and volatility overall and by year. Tested return normality using the D'Agostino test, with skewness and kurtosis to characterise the distribution.
-
-**4. Correlation and hypothesis testing.** Built a correlation matrix across price, volume, return, volatility, and range. Applied a two-sample t-test comparing volume on up-days against down-days. The opening-price versus volume comparison was run within each year to control for the confound between rising prices and falling volume.
-
-**5. Time-based analysis.** Calculated yearly returns, monthly seasonality (each year-month's return first, then averaged by month), and average returns by weekday.
-
----
-
 ## ✅ Results
 
 Two of the three assumptions did not hold. In both cases the cause was a measurement choice rather than a market pattern.
@@ -63,9 +41,9 @@ Two of the three assumptions did not hold. In both cases the cause was a measure
 |---|---|---|
 | Has AAPL become riskier as its price climbed? | Rolling volatility on % returns, by year | **No.** Volatility peaked in 2022 and sits near average today |
 | Does volume signal price direction? | t-test on up-days vs down-days | **No.** Statistically indistinguishable (p = 0.267) |
-| Do calendar patterns exist? | Monthly and weekday return averages | **Weakly.** A monthly pattern appears, no weekday effect at all |
+| Do calendar patterns exist? | Monthly and weekday return averages | **Weakly.** A monthly pattern appears but rests on five observations per month; no weekday effect at all |
 
-Each result is detailed below.
+Each result is detailed below, along with a fourth that emerged from the volume analysis: daily volume fell 39% across the period.
 
 ---
 
@@ -73,31 +51,33 @@ Each result is detailed below.
 
 ### 1. Apple more than doubled, but lost 28.6% in 2022
 
-AAPL returned **+112.8%** over five years, a **16.3% CAGR**, rising from $146 to $311. Growth was uneven. Every year was positive except 2022, and the full five-year return was available only to a holder who remained invested through that decline.
+AAPL returned **+112.8%** over five years, a **16.3% CAGR** (compound annual growth rate), rising from $146 to $311. Growth was uneven. Every year was positive except 2022, and the full five-year return was available only to a holder who remained invested through that decline.
 
 ![Price trend and yearly returns](images/price_and_yearly_returns.png)
 
-*Left: daily closing price with its 30-day trend line. Right: return in each calendar year.*
+*Left: daily closing price with its 30-day trend line. Right: return in each calendar year. 2021 and 2026 are partial years, so their bars cover five and seven months respectively.*
 
 ---
 
 ### 2. The price rose, but risk did not
 
-Measured on percentage returns, volatility shows **no upward trend**. 2022 was the most volatile year at 2.20% average daily movement, 2023 and 2024 were the calmest at approximately 1.3–1.4%, and 2026 sits near the five-year average of 1.65%.
+**The price climbed 112.8%. Volatility did not follow.** Measured on percentage returns there is **no upward trend**: 2022 was the most volatile year at 2.20% average daily movement, 2023 and 2024 were the calmest at approximately 1.3–1.4%, and 2026 sits near the five-year average of 1.65%.
 
-The perception that Apple became riskier stems from measuring volatility in dollars. A $300 stock moves more dollars per day than a $150 stock at identical percentage volatility, so a dollar-based measure rises automatically with price. Correcting the measure reverses the conclusion.
-
-One spike breaks the pattern. Early 2025 peaks at **4.4%**, above the 3.12% high of 2022 and **the most volatile 30 day stretch in the sample.** Yet 2025's median day was 1.61%, below the five-year average of 1.65%, and the boxplot confines the episode to the upper outliers with the interquartile range untouched. A peak nearly three times the year's own typical day is the signature of an isolated shock. The year contained **an extreme month, not an elevated one**.
+The perception that Apple became riskier stems from measuring volatility in dollars. A $300 stock moves more dollars per day than a $150 stock at identical percentage volatility, so a dollar-based measure rises automatically with price. **It tracks the price, not the risk.** Correcting the measure reverses the conclusion.
 
 ![Volatility analysis](images/volatility_analysis.png)
+
+*Left: 30-day rolling volatility against the five-year mean. Right: distribution by year.*
+
+The chart's one dramatic feature does not change this. Early 2025 peaks at **4.4%**, the most volatile 30-day stretch in the sample and above the 3.12% high of 2022. Yet 2025's median day was 1.61%, below the five-year average, and the boxplot confines the episode to the upper outliers with the interquartile range untouched. A peak nearly three times the year's own typical day is **an isolated shock, not a new baseline**.
 
 ---
 
 ### 3. Large single-day moves occur far more often than expected
 
-Returns fail a normality test (**p < 0.001**) with **kurtosis of 6.64**, indicating that extreme daily moves occur far more frequently than a normal distribution predicts.
+**Any risk model that assumes a normal distribution will understate how often Apple moves sharply.** Returns fail a normality test (**p < 0.001**) with **kurtosis of 6.64**, meaning extreme daily moves occur far more frequently than a bell curve predicts. Terms in this section are defined in the [Glossary](DATA_DICTIONARY.md#glossary).
 
-The Q-Q plot (top right) shows this directly. Under a normal distribution the points would follow the straight red line; instead they diverge sharply at both ends. Each divergent point represents a day that a normal model treats as near-impossible. Risk measures built on that assumption will understate the frequency of large moves.
+The Q-Q plot (top right) shows this directly. Under a normal distribution the points would follow the straight red line; instead they diverge sharply at both ends. Each divergent point is a day the normal model treats as near-impossible and that happened anyway.
 
 ![Return distribution](images/return_distribution.png)
 
@@ -105,25 +85,33 @@ The Q-Q plot (top right) shows this directly. Under a normal distribution the po
 
 ### 4. Volume shows no relationship with price direction
 
-Volume on up-days (63.9M shares) is statistically indistinguishable from down-days (65.7M): **p = 0.267**, correlation of 0.01.
-
-The left chart compares days with a below-average opening price and above-average volume against days with an above-average open and above-average volume, measured **within each year**. The result is 241 against 210, a ratio of **1.15x**. The same comparison against five-year averages produced **4.8x**, suggesting that low prices attract heavy trading. That larger figure was an artifact: prices rose while volume fell across the period, so a full-period comparison conflates price level with time.
-
-![Volume and price relationship](images/volume_price.png)
-
-That decline is the more substantive volume finding. **Average daily volume fell approximately 39%** (85M to 51M shares) while the price more than doubled, producing a **-0.40** correlation between Close and Volume, the strongest relationship in the matrix below. Pct_Change against Volume sits at **0.01**, confirming that daily returns and volume are unrelated.
-
-![Correlation matrix](images/correlation_matrix.png)
+Volume on up-days (63.9M shares) is statistically indistinguishable from down-days (65.7M): **p = 0.267**, correlation of 0.01. A gap that small appears by chance often enough that it is not evidence of a pattern.
 
 ---
 
-### 5. Monthly patterns are weak, weekday patterns absent
+### 5. Trading volume fell 39% as the price doubled
 
-July (+6.7%), November (+5.3%), May (+4.3%) and October (+3.9%) averaged strongest, September weakest (-3.3%). The bars appear decisive, but each rests on five observations, so a single unusual year can reverse a month's sign.
+**Average daily volume declined from approximately 85M shares to 51M** while the price rose 112.8%. This produces a **-0.40** correlation between Close and Volume, the strongest relationship in the matrix below.
+
+![Correlation matrix](images/correlation_matrix.png)
+
+The correlation does not mean high prices suppress trading. Both measures trend across the period in opposite directions, and correlation registers that. `Pct_Change` against Volume sits at **0.01**, confirming that daily returns and volume are unrelated.
+
+The same time trend distorted a related comparison. Measured against five-year averages, days with a below-average opening price and above-average volume outnumbered high-price heavy-volume days **4.8x**, suggesting that low prices attract heavy trading. But below-average price and above-average volume both describe the early years, so that split was separating 2021 from 2026 rather than cheap days from expensive ones. Comparing each day against its own year's averages gives 241 against 210, a ratio of **1.15x**.
+
+![Volume and price relationship](images/volume_price.png)
+
+*Left: heavy-volume days by price level, compared within each year rather than across the full period.*
+
+---
+
+### 6. Calendar patterns are too thin to rely on
+
+**The monthly bars look decisive, but each rests on five observations.** July (+6.7%), November (+5.3%), May (+4.3%) and October (+3.9%) averaged strongest and September weakest (-3.3%), yet one unusual year would reverse a month's sign. The chart describes five specific years rather than a repeatable pattern.
 
 ![Monthly seasonality](images/monthly_seasonality.png)
 
-Weekdays show no effect. Average returns range from -0.09% (Thursday) to +0.16% (Wednesday), a spread of roughly a quarter of a percent against typical daily movement of 1.6–1.9%.
+Weekdays show nothing at all. Average returns range from -0.09% (Thursday) to +0.16% (Wednesday), a spread of roughly a quarter of a percent against typical daily movement of 1.6–1.9%.
 
 ![Weekday effect](images/weekday_effect.png)
 
@@ -131,21 +119,16 @@ Weekdays show no effect. Average returns range from -0.09% (Thursday) to +0.16% 
 
 ## 💡 Methodological Takeaways
 
-Three measurement decisions changed the conclusions. Each applies well beyond stock data.
+Four points where a reasonable measurement choice would have produced the wrong answer.
 
-**1. Compare in percentages when the base changes.**
+| Decision | Measured the obvious way | After correction |
+|---|---|---|
+| **Volatility unit** — dollars or percentage returns | Risk appears to roughly double | No trend across five years |
+| **Comparison baseline** — five-year average or within-year | Low-price days draw 4.8x more heavy trading | 1.15x |
+| **Reporting an average** — headline rate alone or with its worst period | 16.3% CAGR reads as steady | Contains a -28.6% year |
+| **Sample size** — how many observations sit behind an average | July's +6.7% reads as a seasonal edge | Five observations; one year flips the sign |
 
-Volatility measured in dollars appeared to double. Measured in percentages, it showed no trend. The price had doubled, so the dollar figure grew on its own. Same data, opposite conclusions.
-
-**2. Check group comparisons for hidden time effects.**
-
-Splitting days by price level suggested that cheaper days attracted 4.8x more heavy trading. Prices rose and volume fell over the period, so that split was largely separating earlier days from recent ones. Comparing each day against its own year reduced the gap to 1.15x. Where two variables trend in opposite directions, a whole-period split measures the trend rather than the relationship.
-
-**3. Move the baseline when the series trends.**
-
-Daily volume fell 39% over five years. A threshold set on the five-year average would flag a normal 2026 day as unusually quiet. Baselines must move with the data.
-
-A fourth point concerns reporting rather than measurement: a 16.3% annual return reads as steady, but contains a -28.6% year. Averages on a volatile series should be reported alongside their worst period.
+Where two variables trend in opposite directions, a whole-period comparison measures the trend rather than the relationship. That single problem produced two of the four errors above.
 
 ---
 
@@ -157,8 +140,29 @@ aapl-stock-analysis/
 │── Apple_Inc.ipynb         # Full analysis: code, outputs, insights
 │── DATA_DICTIONARY.md      # Field definitions, formulas, caveats
 │── README.md
-│── LICENSE
 ```
+
+---
+
+## 🧰 Tech Stack
+
+* **Language:** Python
+* **Libraries:** pandas, NumPy, SciPy, Matplotlib, Seaborn, yfinance
+* **Environment:** Jupyter Notebook
+
+---
+
+## 🔄 Workflow
+
+**1. Data acquisition.** Retrieved 1,254 daily OHLCV records via `yfinance` and confirmed 0 missing values and 0 duplicate rows. Unadjusted `Close` was used throughout, since the analysis studies daily price behaviour rather than total shareholder return.
+
+**2. Feature engineering.** Derived daily returns, intraday range, a 30-day moving average for trend, and 30-day rolling volatility. Volatility was calculated on percentage returns rather than dollar prices so that values remain comparable across a period in which the price doubled.
+
+**3. Descriptive and distribution analysis.** Summarised price, volume, and volatility overall and by year. Tested return normality using the D'Agostino test, with skewness and kurtosis to characterise the distribution.
+
+**4. Correlation and hypothesis testing.** Built a correlation matrix across price, volume, return, volatility, and range. Applied a two-sample t-test comparing volume on up-days against down-days. The opening-price versus volume comparison was first run against five-year averages, then rerun within each year once the rising-price and falling-volume trends were found to be driving the result.
+
+**5. Time-based analysis.** Calculated yearly returns, monthly seasonality (each year-month's return first, then averaged by month), and average returns by weekday.
 
 ---
 
@@ -166,6 +170,7 @@ aapl-stock-analysis/
 
 * **No benchmark.** Whether +112.8% beat the market is untested. No S&P 500 or NASDAQ comparison was run.
 * **Five observations per month.** September's -3.3% rests on five Septembers. One unusual year would move it.
+* **Partial first and last years.** The window runs August to August, so 2021 covers five months and 2026 seven. Yearly returns and volatility for those two are not comparable to the full years.
 * **Same-day only.** Volume was compared on up-days against down-days. Whether it predicts the next day is untested.
 * **Price returns only.** Dividends are excluded, so actual shareholder return exceeded 112.8%.
 
@@ -177,5 +182,5 @@ aapl-stock-analysis/
 
 **Thrinesh Vuribindi** — Data Analyst
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/YOUR_LINKEDIN)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thrineshvuribindi)
 [![GitHub](https://img.shields.io/badge/GitHub-12100E?style=for-the-badge&logo=github&logoColor=white)](https://github.com/thrinesh13)

@@ -97,3 +97,15 @@ Summary tables the notebook computes from the features above (not stored as file
 | **Moving average** | Average price over the last N days, recalculated daily; smooths noise to show trend |
 | **Correlation** | Score from -1 to +1 for whether two measures move together; 0 = unrelated |
 | **p-value** | Result of a statistical test; below 0.05 means the pattern is unlikely to be random chance |
+| **CAGR** | Compound annual growth rate: the single steady yearly rate that would produce the same total growth. Smooths an uneven climb into one number |
+| **Standard deviation** | Typical distance of values from their average. Volatility here is the standard deviation of daily returns |
+| **Median** | The middle value once observations are sorted. Unlike the average, it is not pulled upward by a few extreme days |
+| **Outlier** | An observation far from the rest; here, a day whose move was unusually large |
+| **Normal distribution** | The standard bell curve. Many risk models assume returns follow it |
+| **Skewness** | Whether a distribution leans to one side rather than being symmetric around its centre |
+| **Kurtosis** | How heavy a distribution's tails are. Above 3 means extreme values occur more often than a bell curve predicts |
+| **Normality test (D'Agostino)** | Checks whether data plausibly follows a bell curve. A p-value below 0.05 says it does not |
+| **Q-Q plot** | Chart comparing actual data against what a bell curve would produce. Points on the straight line mean a match; points curving away at the ends mean extreme values are more common than the model expects |
+| **t-test** | Compares the averages of two groups to judge whether the difference is larger than chance alone would produce |
+| **Boxplot** | Chart showing the middle half of the data as a box, the usual range as lines, and unusual values as separate points |
+| **Interquartile range** | The middle 50% of observations, from the 25th to the 75th percentile. The box in a boxplot |
