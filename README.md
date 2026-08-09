@@ -2,8 +2,6 @@
 
 Statistical analysis of Apple Inc. stock testing four common market assumptions and examining price behavior and return distribution across five years of daily trading data.
 
-**August 2021 to August 2026. 1,254 trading days**
-
 ---
 
 ## 📌 Context
@@ -19,21 +17,25 @@ Apple is among the most heavily traded stocks, providing consistent daily volume
 | **Source** | Yahoo Finance (`yfinance`) |
 | **Period** | August 2021 to August 2026 |
 | **Observations** | 1,254 trading days |
-| **Fields** | Open, High, Low, Close, Adj Close, Volume |
+| **Fields** | Date, Open, High, Low, Close, Adj Close, Volume |
 
-Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis.
+**Each column represents price of stock in USD, identified by the Date column.** 
+The data reveals the price the stock opened with, its low and high during the day, and closing price of the stock on the given day. Volume describes number of shares traded that day.
 
+Derived measures: daily returns (percentage change from close to close), intraday range (high minus low), 30-day rolling volatility (percentage-based daily movement), and 30-day moving average for trend analysis.
 **Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
 
 ---
 
 ## ⚡ Executive Summary
 
+Six findings emerged from the analysis: four hypothesis tests examining common market assumptions, and two observational findings on price progression and return distribution.
+
 | Finding | Result | Key Insight |
 |---|---|---|
 | Higher price correlates with increased volatility | ❌ Rejected | Percentage volatility remains flat; dollar-denominated measures conflate price level with risk |
 | Trading volume predicts price direction | ❌ Rejected | Volume on up-days and down-days is statistically indistinguishable (p = 0.267) |
-| Calendar effects exist (monthly/weekly patterns) | ⚠️ Insufficient evidence | Observed patterns rest on 5 observations per month; requires extended observation to validate |
+| Calendar effects exist (monthly/weekly patterns) | ⚠️ Mixed evidence | Patterns exist but shift year to year; top month varies by year, suggesting no stable seasonal effect without extended data |
 | Volume decline with price appreciation | ✓ Confirmed | 39% volume reduction despite 112.8% price increase; driven by time trends, not market mechanics |
 | Price progression was uneven across years | ✓ Documented | 2022's -28.6% loss interrupts the narrative; full return only realized by holding through downturns |
 | Returns follow normal distribution | ❌ Rejected | Fat tails present (kurtosis 6.64); extreme moves occur far more frequently than normal model predicts |
@@ -41,8 +43,6 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 ---
 
 ## 📈 Findings
-
-Six findings emerged from the analysis: four hypothesis tests examining common market assumptions, and two observational findings on price progression and return distribution.
 
 ### 1. Does higher stock price correspond to higher risk?
 
@@ -80,17 +80,19 @@ A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025'
 
 **Method:** Aggregated returns by month and weekday across the five-year period.
 
-**Result:** Patterns appear in the charts (July: **+6.7%**, September: **-3.3%**), but lack statistical power. Each month has only **5 observations**; a single unusual year reverses any month's sign. Weekday effects are negligible (**-0.09% to +0.16%**). While the visualizations show variation, the small sample size makes these patterns unreliable.
+**Result:** Patterns appear weakly (July: **+6.7%**, September: **-3.3%**), but are inconsistent across individual years. While July shows the strongest overall return, it is not the top month in every year. The monthly ranking shifts year to year, suggesting the aggregate pattern reflects this specific five-year window rather than a repeatable seasonal effect. Weekday effects are negligible (**-0.09% to +0.16%**), roughly one-sixth of Apple's typical 1.65% daily volatility.
 
-**Monthly patterns:** July and November show positive returns (+6.7% and +5.3%), while September is weakest (-3.3%). However, the 10% spread from worst to best month rests on five independent observations. One strong or weak September would shift the pattern materially. Additionally, July's +6.7% may reflect a single exceptional year, not a repeatable seasonal effect.
+**Monthly patterns:** July and November show positive returns (+6.7% and +5.3%) when aggregated across all five years, while September is weakest (-3.3%). However, examining year-by-year progression reveals that the best-performing month varies. This inconsistency suggests that adding more years of data would likely shift the overall monthly ranking. The current patterns are observations of this period, not predictive insights.
 
-**Weekday patterns:** The range of -0.09% (Thursday) to +0.16% (Wednesday) is negligible, roughly one-sixth of Apple's typical 1.65% daily volatility. No weekday demonstrates consistent outperformance or underperformance.
+**Weekday patterns:** The range of -0.09% (Thursday) to +0.16% (Wednesday) shows no weekday demonstrates consistent outperformance or underperformance.
 
-**Key Insight:** While calendar variation exists, it falls within random fluctuation. These patterns are data descriptions of what happened, not predictions of what will happen.
+**Key Insight:** Calendar patterns exist in this five-year sample but are weak and unstable. The top-performing month overall is not consistently the top performer in each individual year. Extended observation across additional years would be needed to determine if true seasonal patterns exist or if current patterns are coincidental to this period.
 
 ![Monthly Seasonality](images/monthly_seasonality.png)
 
 ![Weekly Patterns](images/weekday_effect.png)
+
+![Trends and Seasonality](images/trends_seasonality.png)
 
 ---
 
@@ -108,7 +110,9 @@ A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025'
 
 ---
 
-Beyond these hypothesis tests, two additional market characteristics emerged from the analysis.
+## Additional Market Characteristics
+
+Beyond the four hypothesis tests, two observational findings reveal important market patterns.
 
 ### 5. How did Apple's stock price and returns progress over the period?
 
@@ -139,7 +143,7 @@ Beyond these hypothesis tests, two additional market characteristics emerged fro
 
 **Result:** **Rejected (p < 0.001).** Returns exhibit **kurtosis of 6.64**, meaning extreme daily moves occur far more frequently than a normal distribution predicts.
 
-The Q-Q plot (top-right of the visualization) shows sharp divergence at both tails, providing clear evidence that days a normal model would classify as near-impossible happened regularly.
+The Q-Q plot (top-right of the visualization) shows sharp divergence at both tails, providing clear evidence that days that a normal model would classify as near-impossible happened regularly.
 
 **Key Insight:** Standard risk models that assume normal distribution systematically underestimate extreme move frequency. With 1.65% average daily volatility, Apple experiences days outside **±3 standard deviations multiple times per year**. These are events that normal models classify as "impossible," yet they occur regularly. This has critical implications for value-at-risk calculations, option pricing, and portfolio hedging strategies built on normality assumptions.
 
@@ -153,7 +157,7 @@ Market insights depend critically on measurement methodology, not market behavio
 
 - **Volatility measurement:** Using dollars instead of percentages creates the false impression of rising risk. Correction reverses the conclusion.
 - **Baseline selection:** Comparing across a multi-year period masks within-period relationships. Time trends dominate naive correlations.
-- **Sample adequacy:** Calendar patterns observed in this five-year window may shift or stabilize with additional years of data. Current findings reflect this period only.
+- **Pattern stability:** Calendar patterns observed in this five-year window are inconsistent year to year. The top-performing month varies by year. Additional years of data would clarify whether stable seasonal patterns exist.
 - **Unit consistency:** A stock's percentage-based risk remained stable despite doubling in price and halving in volume.
 
 The project reinforces a critical principle: **correct mathematics applied to incorrectly-specified questions produces wrong answers.** Analytical rigor requires intentional measurement choices aligned with the economic question being asked.
