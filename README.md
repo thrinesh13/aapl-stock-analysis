@@ -21,7 +21,7 @@ Statistical analysis of Apple Inc. stock testing four common market assumptions 
 
 ## 📌 Context
 
-Apple is among the most heavily traded stocks, providing consistent daily volume and sufficient observations to detect real market patterns. Over the study period, AAPL moved from **$146 to $311 (+112.8% return, 16.3% CAGR)** across three distinct market regimes: **post-pandemic bull run (2021), rate-hike selloff (2022), and recovery (2023-2026)**. This variation eliminates confounding by a single market condition.
+Apple is among the most heavily traded stocks, providing consistent daily volume and sufficient observations to detect real market patterns. Over the study period, AAPL moved from $146 to $311 (+112.8% return, 16.3% CAGR) across three distinct market regimes: post-pandemic bull run (2021), rate-hike selloff (2022), and recovery (2023-2026). This variation eliminates confounding by a single market condition.
 
 ---
 
