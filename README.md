@@ -6,19 +6,6 @@ Statistical analysis of Apple Inc. stock testing four common market assumptions 
 
 ---
 
-## ⚡ Executive Summary
-
-| Finding | Result | Key Insight |
-|---|---|---|
-| Higher price correlates with increased volatility | ❌ Rejected | Percentage volatility remains flat; dollar-denominated measures conflate price level with risk |
-| Trading volume predicts price direction | ❌ Rejected | Volume on up-days and down-days is statistically indistinguishable (p = 0.267) |
-| Calendar effects exist (monthly/weekly patterns) | ⚠️ Insufficient evidence | Observed patterns rest on 5 observations per month; requires extended observation to validate |
-| Volume decline with price appreciation | ✓ Confirmed | 39% volume reduction despite 112.8% price increase; driven by time trends, not market mechanics |
-| Price progression was uneven across years | ✓ Documented | 2022's -28.6% loss interrupts the narrative; full return only realized by holding through downturns |
-| Returns follow normal distribution | ❌ Rejected | Fat tails present (kurtosis 6.64); extreme moves occur far more frequently than normal model predicts |
-
----
-
 ## 📌 Context
 
 Apple is among the most heavily traded stocks, providing consistent daily volume and sufficient observations to detect real market patterns. Over the study period, AAPL moved from **$146 to $311 (+112.8% return, 16.3% CAGR)** across three distinct market regimes: **post-pandemic bull run (2021), rate-hike selloff (2022), and recovery (2023-2026)**. This variation eliminates confounding by a single market condition.
@@ -34,7 +21,22 @@ Apple is among the most heavily traded stocks, providing consistent daily volume
 | **Observations** | 1,254 trading days |
 | **Fields** | Open, High, Low, Close, Adj Close, Volume |
 
-Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis. **Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
+Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis.
+
+**Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
+
+---
+
+## ⚡ Executive Summary
+
+| Finding | Result | Key Insight |
+|---|---|---|
+| Higher price correlates with increased volatility | ❌ Rejected | Percentage volatility remains flat; dollar-denominated measures conflate price level with risk |
+| Trading volume predicts price direction | ❌ Rejected | Volume on up-days and down-days is statistically indistinguishable (p = 0.267) |
+| Calendar effects exist (monthly/weekly patterns) | ⚠️ Insufficient evidence | Observed patterns rest on 5 observations per month; requires extended observation to validate |
+| Volume decline with price appreciation | ✓ Confirmed | 39% volume reduction despite 112.8% price increase; driven by time trends, not market mechanics |
+| Price progression was uneven across years | ✓ Documented | 2022's -28.6% loss interrupts the narrative; full return only realized by holding through downturns |
+| Returns follow normal distribution | ❌ Rejected | Fat tails present (kurtosis 6.64); extreme moves occur far more frequently than normal model predicts |
 
 ---
 
