@@ -54,7 +54,7 @@ Six findings emerged from the analysis: four hypothesis tests examining common m
 
 A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025's median daily movement remains below the five-year average at 1.61%. This spike represents an isolated shock, not a shift in baseline risk.
 
-**Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears higher than a $150 stock moving $2.50/day). Correcting to percentage returns eliminates the apparent trend. Occasional spikes occur but do not alter the underlying stability. A stock that doubles in price need not double in risk.
+**Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears riskier than a $150 stock moving $2.50/day, but both represent identical 1.67% daily movement). Correcting to percentage returns eliminates the apparent trend. Occasional spikes occur but do not alter the underlying stability. A stock that doubles in price need not double in risk.
 
 ![Volatility analysis](images/volatility_analysis.png)
 
