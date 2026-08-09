@@ -62,7 +62,7 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Result:** **Rejected.** Up-day volume: **63.9M shares**; down-day volume: **65.7M shares** (p = 0.267). Correlation between returns and volume: **0.01**.
 
-**Key Insight:** Volume fluctuates independently of price direction. Down-days actually average slightly higher volume than up-days, contradicting the common trader belief that heavy volume drives prices higher. Any observed difference occurs within normal statistical variation. High-volume days are equally likely to close up or down.
+**Key Insight:** Volume fluctuates independently of price direction. Counterintuitively, down-days average slightly higher volume (65.7M) than up-days (63.9M). This contradicts the trader belief that heavy volume drives prices higher. High-volume days are equally likely to close up or down.
 
 ![Volume-Price Relationship](images/volume_price.png)
 
@@ -78,7 +78,7 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Monthly patterns:** July and November show positive returns (+6.7% and +5.3%), while September is weakest (-3.3%). However, the 10% spread from worst to best month rests on five independent observations. One strong or weak September would shift the pattern materially. Additionally, July's +6.7% may reflect a single exceptional year, not a repeatable seasonal effect.
 
-**Weekday patterns:** The range of -0.09% (Thursday) to +0.16% (Wednesday) is negligible—roughly one-sixth of Apple's typical 1.65% daily volatility. No weekday demonstrates consistent outperformance or underperformance.
+**Weekday patterns:** The range of -0.09% (Thursday) to +0.16% (Wednesday) is negligible, roughly one-sixth of Apple's typical 1.65% daily volatility. No weekday demonstrates consistent outperformance or underperformance.
 
 **Key Insight:** While calendar variation exists, it falls within random fluctuation. These patterns are data descriptions of what happened, not predictions of what will happen.
 
@@ -96,7 +96,7 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Actual Finding:** Correlation between daily returns and volume is **0.01** (unrelated). The **-0.40** correlation reflects opposing time trends, not a true negative relationship between price level and trading activity.
 
-**Key Insight:** When two variables trend in opposite directions over time, aggregate correlation measures the trend artifact, not the underlying relationship. Proper analysis requires time-detrending or within-period comparisons to isolate true associations.
+**Key Insight:** When two variables trend in opposite directions over time, aggregate correlation measures the trend artifact, not the underlying relationship. Proper analysis requires time-detrending or within-period comparisons to isolate true associations between variables.
 
 ![Correlation matrix](images/correlation_matrix.png)
 
@@ -106,9 +106,18 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Observation:** Apple appreciated **112.8%** (**$146 to $311**) with a **16.3% CAGR**.
 
-**Actual progression:** Growth was uneven. 2021 returned **+20.7%**, 2022 declined **-28.6%**, 2023 recovered **+52.9%**, 2024 gained **+35.8%**, 2025 added **+10.7%**, and 2026 (partial) gained **+15.3%**. Every year was positive except 2022's sharp rate-hike driven selloff.
+**Yearly progression breakdown:**
 
-**Key Insight:** The 112.8% headline return masks volatility in annual performance. An investor holding through the 2022 decline captured the full five-year gain. An investor exiting after 2022 would have missed the 2023-2024 recovery. Performance appears smooth only when viewed in aggregate; year-to-year progression is lumpy and regime-dependent.
+| Year | Return | Market Regime | Notes |
+|---|---|---|---|
+| 2021 | **+20.7%** | Post-pandemic bull | Partial year (5 months) |
+| 2022 | **-28.6%** | Rate-hike selloff | Highest loss in sample |
+| 2023 | **+52.9%** | Recovery begins | Strongest year; breaks negative streak |
+| 2024 | **+35.8%** | Momentum continues | Steady gains |
+| 2025 | **+10.7%** | Normalizing | Growth moderates |
+| 2026 | **+15.3%** | Steady growth | Partial year (7 months) |
+
+**Key Insight:** The 112.8% headline return masks significant annual volatility. An investor holding through the 2022 decline captured the full five-year gain; one exiting after 2022 would have missed the 2023-2024 recovery (+52.9% and +35.8%). Performance appears smooth only in aggregate. Year-to-year progression is lumpy and regime-dependent. The contrast between 2022's -28.6% and 2023's +52.9% shows why timing matters, yet commitment through downturns is rewarded.
 
 ![Price and Yearly Returns](images/price_and_yearly_returns.png)
 
@@ -120,9 +129,9 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Method:** Applied D'Agostino normality test with Q-Q plot analysis.
 
-**Result:** **Rejected (p < 0.001).** Returns exhibit **kurtosis of 6.64**, meaning extreme daily moves occur far more frequently than a normal distribution predicts. The Q-Q plot shows sharp divergence at both tails—days that a normal model would classify as near-impossible happened regularly.
+**Result:** **Rejected (p < 0.001).** Returns exhibit **kurtosis of 6.64**, meaning extreme daily moves occur far more frequently than a normal distribution predicts. The Q-Q plot shows sharp divergence at both tails. Days that a normal model would classify as near-impossible happened regularly.
 
-**Key Insight:** Standard risk models that assume normal distribution systematically underestimate extreme move frequency. A stock with 1.65% average daily volatility experiences days outside ±3 standard deviations (the "impossible" region in normal models) multiple times per year. This has critical implications for value-at-risk calculations, option pricing, and portfolio hedging strategies built on normality assumptions.
+**Key Insight:** Standard risk models that assume normal distribution systematically underestimate extreme move frequency. With 1.65% average daily volatility, Apple experiences days outside **±3 standard deviations multiple times per year**. These are events that normal models classify as "impossible," yet they occur regularly. This has critical implications for value-at-risk calculations, option pricing, and portfolio hedging strategies built on normality assumptions.
 
 ![Return Distribution](images/return_distribution.png)
 
@@ -137,7 +146,7 @@ This analysis demonstrates that market insights depend critically on measurement
 - **Sample adequacy:** Calendar patterns observed in this five-year window may shift or stabilize with additional years of data. Current findings reflect this period only.
 - **Unit consistency:** A stock's percentage-based risk remained stable despite doubling in price and halving in volume.
 
-The project reinforces a critical principle: correct mathematics applied to incorrectly-specified questions produces wrong answers. Analytical rigor requires intentional measurement choices aligned with the economic question being asked.
+The project reinforces a critical principle: **correct mathematics applied to incorrectly-specified questions produces wrong answers.** Analytical rigor requires intentional measurement choices aligned with the economic question being asked.
 
 ---
 
@@ -163,13 +172,21 @@ aapl-stock-analysis/
 
 ## 🔄 Methodology
 
-1. **Data Acquisition:** Retrieved 1,254 daily OHLCV records; verified 0 missing values and 0 duplicates. Unadjusted `Close` used for analysis of daily price behavior.
+**1. Data Acquisition**
+- Retrieved 1,254 daily OHLCV records; verified 0 missing values and 0 duplicates
+- Used unadjusted `Close` for daily price behavior analysis
 
-2. **Feature Engineering:** Derived daily returns, intraday range, 30-day moving average, and 30-day rolling volatility on percentage returns (ensuring comparability across the five-year period).
+**2. Feature Engineering**
+- Daily returns, intraday range, 30-day moving average, 30-day rolling volatility (% returns)
+- Percentage-based metrics ensure comparability across the five-year period
 
-3. **Hypothesis Testing:** Applied D'Agostino normality test on returns; two-sample t-test for volume comparison; Pearson correlation for relationship analysis.
+**3. Hypothesis Testing**
+- D'Agostino normality test on returns
+- Two-sample t-test for volume (up-days vs down-days)
+- Pearson correlation for relationship analysis
 
-4. **Time-Based Analysis:** Computed yearly returns, monthly seasonality (within-year and aggregated), and average returns by weekday.
+**4. Time-Based Analysis**
+- Yearly returns, monthly seasonality (within-year and aggregated), weekday averages
 
 ---
 
