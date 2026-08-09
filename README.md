@@ -34,7 +34,9 @@ Apple is among the most heavily traded stocks, providing consistent daily volume
 | **Observations** | 1,254 trading days |
 | **Fields** | Open, High, Low, Close, Adj Close, Volume |
 
-Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis. **Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
+Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis.
+
+**Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
 
 ---
 
