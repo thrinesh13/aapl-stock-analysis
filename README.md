@@ -21,7 +21,7 @@ Statistical analysis of Apple Inc. stock testing four common market assumptions 
 
 ## 📌 Context
 
-Apple is among the most heavily traded stocks, providing consistent daily volume and sufficient observations to detect real market patterns. Over the study period, AAPL moved from $146 to $311 (+112.8% return, 16.3% CAGR) across three distinct market regimes: post-pandemic bull run (2021), rate-hike selloff (2022), and recovery (2023-2026). This variation eliminates confounding by a single market condition.
+Apple is among the most heavily traded stocks, providing consistent daily volume and sufficient observations to detect real market patterns. Over the study period, AAPL moved from **$146 to $311 (+112.8% return, 16.3% CAGR)** across three distinct market regimes: **post-pandemic bull run (2021), rate-hike selloff (2022), and recovery (2023-2026)**. This variation eliminates confounding by a single market condition.
 
 ---
 
@@ -34,13 +34,13 @@ Apple is among the most heavily traded stocks, providing consistent daily volume
 | **Observations** | 1,254 trading days |
 | **Fields** | Open, High, Low, Close, Adj Close, Volume |
 
-Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis.
-
-**Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
+Derived measures: daily returns, intraday range, 30-day rolling volatility (% returns), and 30-day moving average for trend analysis. **Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
 
 ---
 
 ## 📈 Findings
+
+Six findings emerged from the analysis: four hypothesis tests examining common market assumptions, and two observational findings on price progression and return distribution.
 
 ### 1. Does higher stock price correspond to higher risk?
 
@@ -48,7 +48,9 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Method:** Calculated 30-day rolling volatility as percentage returns across five years.
 
-**Result:** Rejected. Average daily volatility: **1.65%**. Peak year (2022): 2.20%; lowest years (2023-2024): 1.3-1.4%. Current volatility aligns with five-year mean despite 112.8% price appreciation. A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025's median daily movement remains below the five-year average at 1.61%. This spike represents an isolated shock, not a shift in baseline risk.
+**Result:** Rejected. Average daily volatility: **1.65%**. Peak year (2022): 2.20%; lowest years (2023-2024): 1.3-1.4%. During this period, price rose from $146 to $311 (+112.8%), yet volatility showed no upward trend. Current volatility aligns with five-year mean despite 112.8% price appreciation.
+
+A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025's median daily movement remains below the five-year average at 1.61%. This spike represents an isolated shock, not a shift in baseline risk.
 
 **Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears higher than a $150 stock moving $2.50/day). Correcting to percentage returns eliminates the apparent trend. Occasional spikes occur but do not alter the underlying stability. A stock that doubles in price need not double in risk.
 
@@ -64,7 +66,7 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Result:** **Rejected.** Up-day volume: **63.9M shares**; down-day volume: **65.7M shares** (p = 0.267). Correlation between returns and volume: **0.01**.
 
-**Key Insight:** Volume fluctuates independently of price direction. Counterintuitively, down-days average slightly higher volume (65.7M) than up-days (63.9M). This contradicts the trader belief that heavy volume drives prices higher. High-volume days are equally likely to close up or down.
+**Key Insight:** Volume fluctuates independently of price direction. Counterintuitively, down-days average slightly higher volume than up-days, contradicting the trader belief that heavy volume drives prices higher. High-volume days are equally likely to close up or down.
 
 ![Volume-Price Relationship](images/volume_price.png)
 
@@ -76,7 +78,7 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Method:** Aggregated returns by month and weekday across the five-year period.
 
-**Result:** Patterns appear (July: **+6.7%**, September: **-3.3%**) but lack statistical power. Each month has only **5 observations**; a single unusual year reverses any month's sign. Weekday effects are negligible (**-0.09% to +0.16%**).
+**Result:** Patterns appear in the charts (July: **+6.7%**, September: **-3.3%**), but lack statistical power. Each month has only **5 observations**; a single unusual year reverses any month's sign. Weekday effects are negligible (**-0.09% to +0.16%**). While the visualizations show variation, the small sample size makes these patterns unreliable.
 
 **Monthly patterns:** July and November show positive returns (+6.7% and +5.3%), while September is weakest (-3.3%). However, the 10% spread from worst to best month rests on five independent observations. One strong or weak September would shift the pattern materially. Additionally, July's +6.7% may reflect a single exceptional year, not a repeatable seasonal effect.
 
@@ -96,13 +98,15 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Apparent Finding:** Correlation between Close price and Volume is **-0.40**, suggesting inverse relationship.
 
-**Actual Finding:** Correlation between daily returns and volume is **0.01** (unrelated). The **-0.40** correlation reflects opposing time trends, not a true negative relationship between price level and trading activity.
+**Actual Finding:** Correlation between daily returns and volume is **0.01** (unrelated). Looking at the correlation matrix, Close-to-Volume shows **-0.40** (bottom-left), but daily returns-to-Volume shows only **0.01**. The -0.40 reflects opposing time trends, not a true negative relationship between price level and trading activity.
 
 **Key Insight:** When two variables trend in opposite directions over time, aggregate correlation measures the trend artifact, not the underlying relationship. Proper analysis requires time-detrending or within-period comparisons to isolate true associations between variables.
 
 ![Correlation matrix](images/correlation_matrix.png)
 
 ---
+
+Beyond these hypothesis tests, two additional market characteristics emerged from the analysis.
 
 ### 5. How did Apple's stock price and returns progress over the period?
 
@@ -131,7 +135,9 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Method:** Applied D'Agostino normality test with Q-Q plot analysis.
 
-**Result:** **Rejected (p < 0.001).** Returns exhibit **kurtosis of 6.64**, meaning extreme daily moves occur far more frequently than a normal distribution predicts. The Q-Q plot shows sharp divergence at both tails. Days that a normal model would classify as near-impossible happened regularly.
+**Result:** **Rejected (p < 0.001).** Returns exhibit **kurtosis of 6.64**, meaning extreme daily moves occur far more frequently than a normal distribution predicts.
+
+The Q-Q plot (top-right of the visualization) shows sharp divergence at both tails, providing clear evidence that days a normal model would classify as near-impossible happened regularly.
 
 **Key Insight:** Standard risk models that assume normal distribution systematically underestimate extreme move frequency. With 1.65% average daily volatility, Apple experiences days outside **±3 standard deviations multiple times per year**. These are events that normal models classify as "impossible," yet they occur regularly. This has critical implications for value-at-risk calculations, option pricing, and portfolio hedging strategies built on normality assumptions.
 
@@ -141,7 +147,7 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 ## 💡 Conclusions
 
-This analysis demonstrates that market insights depend critically on measurement methodology. Three widely-held assumptions fail empirical testing. The reason: measurement choices, not market behavior.
+Market insights depend critically on measurement methodology, not market behavior. Three widely-held assumptions failed empirical testing—revealing that measurement choices drive conclusions.
 
 - **Volatility measurement:** Using dollars instead of percentages creates the false impression of rising risk. Correction reverses the conclusion.
 - **Baseline selection:** Comparing across a multi-year period masks within-period relationships. Time trends dominate naive correlations.
