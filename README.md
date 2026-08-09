@@ -44,9 +44,9 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Method:** Calculated 30-day rolling volatility as percentage returns across five years.
 
-**Result:** Rejected. Average daily volatility: 1.65%. Peak year (2022): 2.20%; lowest years (2023-2024): 1.3-1.4%. Current volatility aligns with five-year mean despite 112.8% price appreciation.
+**Result:** Rejected. Average daily volatility: 1.65%. Peak year (2022): 2.20%; lowest years (2023-2024): 1.3-1.4%. Current volatility aligns with five-year mean despite 112.8% price appreciation. A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025's median daily movement remains below the five-year average at 1.61%. This spike represents an isolated shock, not a shift in baseline risk.
 
-**Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears higher than a $150 stock moving $2.50/day). Correcting to percentage returns eliminates the apparent trend. A stock that doubles in price need not double in risk.
+**Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears higher than a $150 stock moving $2.50/day). Correcting to percentage returns eliminates the apparent trend. Occasional spikes occur but do not alter the underlying stability. A stock that doubles in price need not double in risk.
 
 ![Volatility analysis](images/volatility_analysis.png)
 
@@ -60,7 +60,9 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Result:** Rejected. Up-day volume: 63.9M shares; down-day volume: 65.7M shares (p = 0.267). Correlation between returns and volume: 0.01.
 
-**Key Insight:** Volume fluctuates independently of price direction. Any observed difference occurs within normal statistical variation. High-volume days are equally likely to close up or down.
+**Key Insight:** Volume fluctuates independently of price direction. Down-days actually average slightly higher volume than up-days, contradicting the common trader belief that heavy volume drives prices higher. Any observed difference occurs within normal statistical variation. High-volume days are equally likely to close up or down.
+
+![Volume-Price Relationship](images/volume_price.png)
 
 ---
 
@@ -72,7 +74,15 @@ Derived measures: daily returns, intraday range, 30-day rolling volatility (% re
 
 **Result:** Patterns appear (July: +6.7%, September: -3.3%) but lack statistical power. Each month has only 5 observations; a single unusual year reverses any month's sign. Weekday effects are negligible (-0.09% to +0.16%).
 
-**Key Insight:** Observed patterns are descriptive of this specific five-year period, not predictive of future returns. Insufficient sample size precludes reliable inference.
+**Monthly patterns:** July and November show positive returns (+6.7% and +5.3%), while September is weakest (-3.3%). However, the 10% spread from worst to best month rests on five independent observations. One strong or weak September would shift the pattern materially. Additionally, July's +6.7% may reflect a single exceptional year, not a repeatable seasonal effect.
+
+**Weekday patterns:** The range of -0.09% (Thursday) to +0.16% (Wednesday) is negligible—roughly one-sixth of Apple's typical 1.65% daily volatility. No weekday demonstrates consistent outperformance or underperformance.
+
+**Key Insight:** While calendar variation exists, it falls within random fluctuation. These patterns are data descriptions of what happened, not predictions of what will happen.
+
+![Monthly Seasonality](images/monthly_seasonality.png)
+
+![Weekly Patterns](images/weekday_effect.png)
 
 ---
 
