@@ -19,6 +19,8 @@ Each assumption is tested using five years of Apple's historical daily market da
 
 ## 📌 Context
 
+Apple Inc. is one of the world's largest technology companies and among the most heavily traded stocks globally. Known for innovation in consumer electronics, software, and services, Apple maintains a strong market presence and consistent daily trading volume, making it ideal for statistical analysis across extended periods.
+
 The **five-year study period** spans multiple market conditions, including the **post-pandemic bull market (2021)**, **rate-hike selloff (2022)**, and **subsequent recovery (2023-2026)**, providing a diverse environment for testing these market assumptions. Over the study period, Apple's stock price increased from **$146 to $311 (+112.8%, 16.3% CAGR)**, providing substantial variation in price levels and market behavior for statistical analysis.
 
 ---
@@ -40,7 +42,7 @@ This dataset contains **five years of Apple Inc.'s (AAPL) daily market data**, w
 * **30-day rolling volatility** — Rolling standard deviation of daily returns over 30 trading days
 * **30-day moving average** — Rolling average of closing prices used to identify price trends
 
-**Full documentation:** See the [Data Dictionary](#data-dictionary).
+**Full documentation:** See the [Data Dictionary](DATA_DICTIONARY.md).
 
 ---
 
