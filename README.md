@@ -1,12 +1,25 @@
 # 📈 Apple Stock Analysis (AAPL)
 
-Statistical analysis of Apple Inc. stock testing four common market assumptions and examining price behavior and return distribution across five years of daily trading data.
+Statistical analysis of Apple Inc. (AAPL) stock market data, testing four common market assumptions and examining price movements and return distributions using five years of historical daily trading data.
+
+---
+
+## 📊 Hypotheses
+
+This project investigates four common assumptions about stock market behavior:
+
+1. **Higher stock price = Higher risk** — Does volatility increase as Apple's stock price rises?
+2. **Volume predicts direction** — Does trading volume provide meaningful signals about subsequent price movements?
+3. **Calendar patterns exist** — Do certain months or days of the week consistently exhibit different returns?
+4. **Normal distribution assumption** — Do Apple's daily returns follow a normal distribution, as often assumed by traditional risk models?
+
+Each assumption is tested using five years of Apple's historical daily market data to determine whether the observed evidence supports or challenges these common market beliefs.
 
 ---
 
 ## 📌 Context
 
-Apple is among the most heavily traded stocks, providing consistent daily volume and sufficient observations to detect real market patterns. Over the study period, AAPL moved from **$146 to $311 (+112.8% return, 16.3% CAGR)** across three distinct market regimes: **post-pandemic bull run (2021), rate-hike selloff (2022), and recovery (2023-2026)**. This variation eliminates confounding by a single market condition.
+The **five-year study period** spans multiple market conditions, including the **post-pandemic bull market (2021)**, **rate-hike selloff (2022)**, and **subsequent recovery (2023-2026)**, providing a diverse environment for testing these market assumptions. Over the study period, Apple's stock price increased from **$146 to $311 (+112.8%, 16.3% CAGR)**, providing substantial variation in price levels and market behavior for statistical analysis.
 
 ---
 
@@ -19,26 +32,26 @@ Apple is among the most heavily traded stocks, providing consistent daily volume
 | **Observations** | 1,254 trading days |
 | **Fields** | Date, Open, High, Low, Close, Adj Close, Volume |
 
-**Each column represents price of stock in USD, identified by the Date column.** 
-The data reveals the price the stock opened with, its low and high during the day, and closing price of the stock on the given day. Volume describes number of shares traded that day.
+This dataset contains **five years of Apple Inc.'s (AAPL) daily market data**, with each row representing one trading day and capturing opening price, intraday high and low, closing price, adjusted closing price, and trading volume. The dataset provides the foundation for analyzing volatility patterns, volume-price relationships, calendar effects, and return behavior.
 
-Derived measures: daily returns (percentage change from close to close), intraday range (high minus low), 30-day rolling volatility (percentage-based daily movement), and 30-day moving average for trend analysis.
-**Full documentation available in [Data Dictionary](DATA_DICTIONARY.md).**
+**Derived measures:**
+* **Daily returns** — Percentage change in closing price from one trading day to the next
+* **Intraday range** — Difference between the daily high and low prices
+* **30-day rolling volatility** — Rolling standard deviation of daily returns over 30 trading days
+* **30-day moving average** — Rolling average of closing prices used to identify price trends
+
+**Full documentation:** See the [Data Dictionary](#data-dictionary).
 
 ---
 
-## ⚡ Executive Summary
+## ⚡ Key Results
 
-Six findings emerged from the analysis: four hypothesis tests examining common market assumptions, and two observational findings on price progression and return distribution.
-
-| Finding | Result | Key Insight |
+| Hypothesis | Result | Finding |
 |---|---|---|
-| Higher price correlates with increased volatility | ❌ Rejected | Percentage volatility remains flat; dollar-denominated measures conflate price level with risk |
-| Trading volume predicts price direction | ❌ Rejected | Volume on up-days and down-days is statistically indistinguishable (p = 0.267) |
-| Calendar effects exist (monthly/weekly patterns) | ⚠️ Mixed evidence | Patterns exist but shift year to year; top month varies by year, suggesting no stable seasonal effect without extended data |
-| Volume decline with price appreciation | ✓ Confirmed | 39% volume reduction despite 112.8% price increase; driven by time trends, not market mechanics |
-| Price progression was uneven across years | ✓ Documented | 2022's -28.6% loss interrupts the narrative; full return only realized by holding through downturns |
-| Returns follow normal distribution | ❌ Rejected | Fat tails present (kurtosis 6.64); extreme moves occur far more frequently than normal model predicts |
+| **Higher stock price = Higher risk** | ❌ Rejected | Percentage-based volatility remained relatively stable despite a 112.8% increase in price, suggesting dollar-denominated volatility can rise with price level without representing higher percentage risk. |
+| **Volume predicts price direction** | ❌ Rejected | Trading volume on days with price increases and days with price decreases was not statistically different (**p = 0.267**), providing no evidence that volume predicts price direction. |
+| **Calendar patterns exist** | ⚠️ Inconclusive | Calendar-based return patterns appeared in some periods but varied across years, providing insufficient evidence of a consistent seasonal effect. |
+| **Returns follow a normal distribution** | ❌ Rejected | Daily returns exhibited substantial excess kurtosis (**6.64**), indicating heavier tails and more extreme movements than expected under a normal distribution. |
 
 ---
 
@@ -54,7 +67,7 @@ Six findings emerged from the analysis: four hypothesis tests examining common m
 
 A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025's median daily movement remains below the five-year average at 1.61%. This spike represents an isolated shock, not a shift in baseline risk.
 
-**Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears riskier than a $150 stock moving $2.50/day, but both represent identical 1.67% daily movement). Correcting to percentage returns eliminates the apparent trend. Occasional spikes occur but do not alter the underlying stability. A stock that doubles in price need not double in risk.
+**Key Insight:** Dollar-denominated volatility rises with price level automatically (a $300 stock moving $5/day appears higher than a $150 stock moving $2.50/day). Correcting to percentage returns eliminates the apparent trend. Occasional spikes occur but do not alter the underlying stability. A stock that doubles in price need not double in risk.
 
 ![Volatility analysis](images/volatility_analysis.png)
 
@@ -62,13 +75,13 @@ A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025'
 
 ### 2. Does trading volume predict price direction?
 
-**Hypothesis:** Volume differentials between up-days and down-days signal directional strength.
+**Hypothesis:** Volume differentials between days with price increases and days with price decreases signal directional strength.
 
-**Method:** Two-sample t-test comparing mean volume on up-days vs down-days.
+**Method:** Two-sample t-test comparing mean volume on days with price increases versus days with price decreases.
 
-**Result:** **Rejected.** Up-day volume: **63.9M shares**; down-day volume: **65.7M shares** (p = 0.267). Correlation between returns and volume: **0.01**.
+**Result:** **Rejected.** Up-day volume: **63.9M shares**; down-day volume: **65.7M shares**. The difference was not statistically significant (**p = 0.267**). The correlation between daily returns and volume was also near zero (**r = 0.01**).
 
-**Key Insight:** Volume fluctuates independently of price direction. Counterintuitively, down-days average slightly higher volume than up-days, contradicting the trader belief that heavy volume drives prices higher. High-volume days are equally likely to close up or down.
+**Key Insight:** The analysis found no statistically significant difference in average trading volume between up-days and down-days. Within this dataset, volume therefore provides little evidence of a consistent relationship with daily price direction. The slightly higher average volume on down-days is not statistically significant and should not be interpreted as a directional signal.
 
 ![Volume-Price Relationship](images/volume_price.png)
 
@@ -96,46 +109,7 @@ A 30-day spike in early 2025 reached 4.4% (the highest in the sample), but 2025'
 
 ---
 
-### 4. Why does volume decline while price appreciates?
-
-**Observation:** Average daily volume fell **39%** (**85M → 51M** shares) while price rose **112.8%**.
-
-**Apparent Finding:** Correlation between Close price and Volume is **-0.40**, suggesting inverse relationship.
-
-**Actual Finding:** Correlation between daily returns and volume is **0.01** (unrelated). Looking at the correlation matrix, Close-to-Volume shows **-0.40** (bottom-left), but daily returns-to-Volume shows only **0.01**. The -0.40 reflects opposing time trends, not a true negative relationship between price level and trading activity.
-
-**Key Insight:** When two variables trend in opposite directions over time, aggregate correlation measures the trend artifact, not the underlying relationship. Proper analysis requires time-detrending or within-period comparisons to isolate true associations between variables.
-
-![Correlation matrix](images/correlation_matrix.png)
-
----
-
-## Additional Market Characteristics
-
-Beyond the four hypothesis tests, two observational findings reveal important market patterns.
-
-### 5. How did Apple's stock price and returns progress over the period?
-
-**Observation:** Apple appreciated **112.8%** (**$146 to $311**) with a **16.3% CAGR**.
-
-**Yearly progression breakdown:**
-
-| Year | Return | Market Regime | Notes |
-|---|---|---|---|
-| 2021 | **+20.7%** | Post-pandemic bull | Partial year (5 months) |
-| 2022 | **-28.6%** | Rate-hike selloff | Highest loss in sample |
-| 2023 | **+52.9%** | Recovery begins | Strongest year; breaks negative streak |
-| 2024 | **+35.8%** | Momentum continues | Steady gains |
-| 2025 | **+10.7%** | Normalizing | Growth moderates |
-| 2026 | **+15.3%** | Steady growth | Partial year (7 months) |
-
-**Key Insight:** The 112.8% headline return masks significant annual volatility. An investor holding through the 2022 decline captured the full five-year gain; one exiting after 2022 would have missed the 2023-2024 recovery (+52.9% and +35.8%). Performance appears smooth only in aggregate. Year-to-year progression is lumpy and regime-dependent. The contrast between 2022's -28.6% and 2023's +52.9% shows why timing matters, yet commitment through downturns is rewarded.
-
-![Price and Yearly Returns](images/price_and_yearly_returns.png)
-
----
-
-### 6. Do returns follow the normal distribution assumed in risk models?
+### 4. Do returns follow the normal distribution assumed in risk models?
 
 **Hypothesis:** Daily returns follow a normal (bell curve) distribution.
 
@@ -151,16 +125,56 @@ The Q-Q plot (top-right of the visualization) shows sharp divergence at both tai
 
 ---
 
+## Additional Market Characteristics
+
+Beyond the four hypothesis tests, two observational findings reveal important market patterns.
+
+### 5. Why does volume decline while price appreciates?
+
+**Observation:** Average daily volume fell **39%** (**85M → 51M** shares) while price rose **112.8%**.
+
+**Apparent Finding:** Correlation between closing price and volume is **-0.40**, suggesting an inverse relationship.
+
+**Actual Finding:** Correlation between daily returns and volume is **0.01** (unrelated). Looking at the correlation matrix, closing price to volume shows **-0.40** (bottom-left), but daily returns to volume shows only **0.01**. The -0.40 reflects opposing time trends, not a true negative relationship between price level and trading activity.
+
+**Key Insight:** Volume decline and price appreciation are independent trends, not causally related. Both variables changed over the five-year period for separate reasons—price rose due to strong Apple performance, while volume fell due to lower volatility and reduced trading activity. The -0.40 correlation is a misleading artifact of these opposing time trends. The actual relationship between volume and daily price movement is near zero (r = 0.01), confirming they are unrelated.
+
+![Correlation matrix](images/correlation_matrix.png)
+
+---
+
+### 6. How did Apple's stock price and returns progress over the period?
+
+**Observation:** Apple appreciated **112.8%** (**$146 to $311**) with a **16.3% CAGR**.
+
+**Yearly progression breakdown:**
+
+| Year | Return | Market Regime | Notes |
+|---|---|---|---|
+| 2021 | **+20.7%** | Post-pandemic bull | Partial year (5 months) |
+| 2022 | **-28.6%** | Rate-hike selloff | Highest loss in sample |
+| 2023 | **+52.9%** | Recovery begins | Strongest year; breaks negative streak |
+| 2024 | **+35.8%** | Momentum continues | Steady gains |
+| 2025 | **+10.7%** | Normalizing | Growth moderates |
+| 2026 | **+15.3%** | Steady growth | Partial year (7 months) |
+
+**Key Insight:** The overall 112.8% appreciation masks substantial year-to-year variation. The period included a 28.6% decline in 2022, followed by strong gains in 2023 and 2024. This demonstrates that long-term price appreciation can coexist with substantial intermediate drawdowns and varying market regimes.
+
+![Price and Yearly Returns](images/price_and_yearly_returns.png)
+
+---
+
 ## 💡 Conclusions
 
-Market insights depend critically on measurement methodology, not market behavior. Three widely-held assumptions failed empirical testing—revealing that measurement choices drive conclusions.
+Market insights depend critically on measurement methodology, not market behavior. Three widely-held assumptions failed empirical testing, revealing that measurement choices drive conclusions.
 
-- **Volatility measurement:** Using dollars instead of percentages creates the false impression of rising risk. Correction reverses the conclusion.
-- **Baseline selection:** Comparing across a multi-year period masks within-period relationships. Time trends dominate naive correlations.
-- **Pattern stability:** Calendar patterns observed in this five-year window are inconsistent year to year. The top-performing month varies by year. Additional years of data would clarify whether stable seasonal patterns exist.
-- **Unit consistency:** A stock's percentage-based risk remained stable despite doubling in price and halving in volume.
+* **Volatility measurement:** Using dollars instead of percentages creates the false impression of rising risk. Correction reverses the conclusion.
+* **Volume relationships:** Trading volume showed no statistically significant difference between days with price increases and days with price decreases, with correlation between daily returns and volume near zero.
+* **Calendar effects:** Monthly and weekday patterns appeared in the sample but were unstable across years, providing insufficient evidence of a persistent seasonal effect.
+* **Correlation methodology:** The negative correlation between closing price and volume may largely reflect opposing time trends, while correlation between returns and volume was effectively zero.
+* **Distributional assumptions:** Apple's daily returns significantly deviated from normality and exhibited heavy tails, highlighting the limitations of assuming a normal distribution when modeling extreme movements.
 
-The project reinforces a critical principle: **correct mathematics applied to incorrectly-specified questions produces wrong answers.** Analytical rigor requires intentional measurement choices aligned with the economic question being asked.
+Overall, the analysis reinforces an important principle: statistical conclusions depend not only on the data, but also on how variables are defined, measured, and tested.
 
 ---
 
@@ -196,7 +210,7 @@ aapl-stock-analysis/
 
 **3. Hypothesis Testing**
 - D'Agostino normality test on returns
-- Two-sample t-test for volume (up-days vs down-days)
+- Two-sample t-test for volume (days with price increases versus days with price decreases)
 - Pearson correlation for relationship analysis
 
 **4. Time-Based Analysis**
