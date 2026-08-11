@@ -176,7 +176,7 @@ Market insights depend critically on measurement methodology, not market behavio
 * **Correlation methodology:** The negative correlation between closing price and volume may largely reflect opposing time trends, while correlation between returns and volume was effectively zero.
 * **Distributional assumptions:** Apple's daily returns significantly deviated from normality and exhibited heavy tails, highlighting the limitations of assuming a normal distribution when modeling extreme movements.
 
-Overall, the analysis reinforces an important principle: statistical conclusions depend not only on the data, but also on how variables are defined, measured, and tested.
+Overall, the analysis reinforces an important principle: **statistical conclusions depend not only on the data, but also on how variables are defined, measured, and tested.**
 
 ---
 
